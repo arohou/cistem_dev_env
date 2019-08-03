@@ -4,4 +4,5 @@
 #
 /opt/eclipse/eclipse &
 wxformbuilder &
-xterm 
+xterm &
+xterm -e top
