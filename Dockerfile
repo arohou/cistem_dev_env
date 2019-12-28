@@ -3,19 +3,19 @@ FROM rafdouglas/eclipse_docker:eclipse_photon_C_Cpp
 
 
 # Add dependencies needed to build cisTEM
-RUN sudo apt-get --allow-releaseinfo-change update && sudo apt-get install -y gcc g++ gtk2.0-dev xterm unzip fftw3-dev gdb valgrind git vim
+RUN sudo apt-get --allow-releaseinfo-change update && sudo apt-get install -y gcc g++ gtk2.0-dev xterm unzip fftw3-dev gdb valgrind git vim bc
 
 # Build & install wxWidgets (static, for cisTEM)
-RUN wget http://versaweb.dl.sourceforge.net/project/wxwindows/3.0.2/wxWidgets-3.0.2.tar.bz2 -O /tmp/wxwidgets.tar.gz && \
+RUN wget https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2 -O /tmp/wxwidgets.tar.gz && \
     echo 'Installing wxWidgets' && \
     sudo tar -xf /tmp/wxwidgets.tar.gz -C /tmp && \
-    cd /tmp/wxWidgets-3.0.2 && \
+    cd /tmp/wxWidgets-3.0.4 && \
     CXX=g++ CC=gcc CXXFLAGS=-fPIC CFLAGS=-fPIC ./configure --disable-precomp-headers --prefix=/usr/local --with-libnotify=no --disable-shared --without-gtkprint --with-libjpeg=builtin --with-libpng=builtin --with-libtiff=builtin --with-zlib=builtin --with-expat=builtin --disable-compat28 --without-liblzma --without-libjbig --with-gtk=2 && \
     make -j4 && \
     sudo make install
 
 # Build & install wxWidgets (dynamic, for wxformbuilder)
-RUN cd /tmp/wxWidgets-3.0.2 &&\
+RUN cd /tmp/wxWidgets-3.0.4 &&\
 	CXX=g++ CC=gcc ./configure --disable-precomp-headers --prefix=/usr/local --with-libnotify=no --enable-shared --without-gtkprint --with-libjpeg=builtin --with-libpng=builtin --with-libtiff=builtin --with-zlib=builtin --with-expat=builtin --disable-compat28 --without-liblzma --without-libjbig --with-gtk=2 && \
     make -j4 && \
     sudo make install
