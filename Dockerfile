@@ -57,15 +57,21 @@ RUN cd /usr/local/include/wx-3.0/wx && sudo ln -s /usr/local/lib/wx/include/gtk2
 
 
 # We begin at the host's home, which will be mounted by the docker run command
-WORKDIR /mnt/ext_home
+#WORKDIR /mnt/ext_home
 
 # A script to launch multiple applications
-COPY --chown=developer:developer cistem_dev_launcher.sh /
-CMD /cistem_dev_launcher.sh
+#COPY --chown=developer:developer cistem_dev_launcher.sh /
+#CMD /cistem_dev_launcher.sh
+
+# Just tell the user what they need to know using an old-fashioned MOTD
+RUN printf "\n\n*****************************************************************\n\nWelcome to the cisTEM development environment\n\nUseful commands:\n/opt/eclipse/eclipse      our IDE of choice\nwxformbuilder             for tweaking the cisTEM GUI \n\nTips:\n- Your username: developer\n- Your password: developer\n- Your host system's home directory is mounted at /mnt/ext_home \n- on MacOS, if you find that your GUI applications \n  (Eclipse, wxformbuilder) get killed at random times, you may \n  want to start an xterm with top running in it\n\n*****************************************************************\n\n" | sudo tee /etc/motd > /dev/null && printf "cat /etc/motd\n" > /home/developer/.bashrc
+
 
 USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer
+
+
 
 
 
