@@ -8,7 +8,7 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt -y install sudo software-pr
 	useradd -s /bin/bash -m developer && echo "developer:developer" | chpasswd && adduser developer sudo
 
 # Add dependencies needed to build cisTEM
-RUN sudo apt-get --allow-releaseinfo-change update && sudo apt-get install -y gcc g++ gtk2.0-dev xterm unzip fftw3-dev gdb valgrind git vim bc meson
+RUN sudo apt-get --allow-releaseinfo-change update && sudo apt-get install -y gcc g++ gtk2.0-dev xterm unzip fftw3-dev gdb valgrind git vim bc meson cmake
 
 # Build & install wxWidgets (static, for cisTEM)
 RUN wget -q https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2 -O /tmp/wxwidgets.tar.gz && \
