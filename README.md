@@ -23,6 +23,9 @@ MacOS:
 - Increase memory limit to e.g. 8GB (default is 2GB)
 
 # Running the Docker
+
+Note: this is not necessary if you are going to use Visual Studio Code. In that case, just skip ahead.
+
 - In the directory with this README file, run `sh ./run.sh`
 
 This lands you in a terminal running in the containerized instance of Linux, where you are a user named `developer` and your password is `developer`. Thanks to one of the `-v` options to the `docker run` command, your home directory is mounted in the dockerized Linux at `/mnt/ext_home/` - assuming your git repository is somewhere under your home, this will make it easy to work on cisTEM within the Docker.
