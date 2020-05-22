@@ -48,6 +48,11 @@ Open VSCode and install the following extensions (View > Extensions):
 - CMake Tools
 - Remote Development
 
+## Install cisTEM dependencies on your system
+MacOS:
+
+- `brew install cmake pkg-config fftw wxWidgets`
+
 
 ## Local (native) cisTEM development 
 Let's make sure everything works locally first:
@@ -80,10 +85,14 @@ Unfortunately, cisTEM does not work on MacOS (yet), and it has not been tested o
 VSCode has a nice feature whereby it can run the Docker image for you, connect to it, and let you build, debug, and run cisTEM within the Docker, but using the native Visual Code Studio application. More detailed instructions are available [on the vscode website](https://code.visualstudio.com/docs/remote/containers#_attaching-to-running-containers), but in brief:
 
 - Make sure you have the latest version of the image: `docker pull arohou/cistem_dev_env`
-- Open vscode
-- "Open folder...", select your cisTEM directory
-- If you see a popup suggesting to "Reopen in container", go for it
-	- If not, reopen the project in the container by selecting the "Remote-Containers: Reopen in Container..." command from the Command Palette (F1)
+- If you don't have vscode running yet:
+	- Open vscode
+	- "Open folder...", select your cisTEM directory
+	- If you see a popup suggesting to "Reopen in container", go for it
+		- If not, reopen the project in the container by selecting the "Remote-Containers: Reopen in Container..." command from the Command Palette (F1)
+- If you already have vscode running natively:
+	- Open your cisTEM folder
+	- Reopen the project in the container by selecting the "Remote-Containers: Reopen in Container..." command from the Command Palette (F1)
 - Open the Extensions sidebar (by clicking on the Extensions icon, left pane, looks like squares)
 - Install the following extensions in the Dev Container:
 	- C/C++
@@ -96,7 +105,12 @@ Once the Dev Container has reloaded, you will be prompted to select a Kit (toolc
 
 
 
-You should now be able to build, run, debug cisTEM in the Linux environment from the comfort of your native vscode.
+You should now be able to configure and build cisTEM in the Linux environment from the comfort of your native vscode.
+
+To run the cisTEM GUI, make sure that XQuartz is running, and, in your native MacOS terminal:
+
+- `xhost + 127.0.0.1`
+
 
 # [Deprecated] Using eclipse
 ##Eclipse configuration
