@@ -8,14 +8,15 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt -y install sudo software-pr
 	useradd -s /bin/bash -m developer && echo "developer:developer" | chpasswd && adduser developer sudo
 
 # Add dependencies needed to build cisTEM
-RUN sudo apt-get --allow-releaseinfo-change update && sudo apt-get install -y gcc g++ gtk2.0-dev xterm unzip fftw3-dev gdb valgrind git vim bc meson cmake
+# Also, python is useful in general (e.g. for install phenix)
+RUN sudo apt-get --allow-releaseinfo-change update && sudo apt-get install -y gcc g++ gtk2.0-dev xterm unzip fftw3-dev gdb valgrind git vim bc meson cmake python
 
 # Build & install wxWidgets (static, for cisTEM)
 RUN wget -q https://github.com/wxWidgets/wxWidgets/releases/download/v3.0.4/wxWidgets-3.0.4.tar.bz2 -O /tmp/wxwidgets.tar.gz && \
     echo 'Installing wxWidgets' && \
     sudo tar -xf /tmp/wxwidgets.tar.gz -C /tmp && \
     cd /tmp/wxWidgets-3.0.4 && \
-    CXX=g++ CC=gcc CXXFLAGS=-fPIC CFLAGS=-fPIC ./configure --disable-precomp-headers --prefix=/usr/local --with-libnotify=no --disable-shared --without-gtkprint --with-libjpeg=builtin --with-libpng=builtin --with-libtiff=builtin --with-zlib=builtin --with-expat=builtin --disable-compat28 --without-liblzma --without-libjbig --with-gtk=2 && \
+    CXX=g++ CC=gcc CXXFLAGS=-fPIC CFLAGS=-fPIC ./configure --disable-precomp-headers --prefix=/usr/local --with-libnotify=no --disable-shared --without-gtkprint --with-libjpeg=builtin --with-libpng=builtin --with-libtiff=builtin --with-zlib=builtin --with-expat=builtin --disable-compat28 --without-liblzma --without-libjbig --with-gtk=2 --disable-sys-libs && \
     make -j4 && \
     sudo make install
 
